@@ -14,6 +14,7 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -56,6 +57,10 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon" className="border-t border-border h-full">
+      <SidebarHeader className="flex flex-row items-center gap-3 py-4 pl-3">
+        <img src="/echo.svg" alt="Echo" className="h-8 w-auto" />
+        <span className="font-semibold text-lg">Echo</span>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>

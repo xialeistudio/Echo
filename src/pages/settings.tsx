@@ -44,7 +44,7 @@ export function Settings() {
     <div className="w-full space-y-6">
       <div className="space-y-6">
         <div>
-          <h4 className="text-base font-medium text-muted-foreground mb-4">
+          <h4 className="text-base font-medium text-muted-foreground">
             {t("settings.appearance")}
           </h4>
           <div className="space-y-0">
