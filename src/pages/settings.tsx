@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -6,24 +7,48 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { get, set, SETTING_KEYS } from "@/lib/setting";
 
 export function Settings() {
+  const [theme, setTheme] = useState<string>("system");
+  const [language, setLanguage] = useState<string>("zh-CN");
+
+  useEffect(() => {
+    loadSettings();
+  }, []);
+
+  const loadSettings = async () => {
+    const savedTheme = await get(SETTING_KEYS.THEME);
+    const savedLanguage = await get(SETTING_KEYS.LANGUAGE);
+
+    if (savedTheme) setTheme(savedTheme);
+    if (savedLanguage) setLanguage(savedLanguage);
+  };
+
+  const handleThemeChange = async (value: string) => {
+    setTheme(value);
+    await set(SETTING_KEYS.THEME, value);
+  };
+
+  const handleLanguageChange = async (value: string) => {
+    setLanguage(value);
+    await set(SETTING_KEYS.LANGUAGE, value);
+  };
+
   return (
     <div className="w-full space-y-6">
       <div className="space-y-6">
         <div>
-          <h4 className="text-sm font-medium text-muted-foreground mb-4">
-            外观
-          </h4>
+          <h4 className="text-base font-medium text-muted-foreground">外观</h4>
           <div className="space-y-0">
             <div className="flex items-center justify-between py-3">
               <div className="space-y-0.5">
-                <div className="text-sm font-medium">主题</div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-base font-medium">主题</div>
+                <div className="text-sm text-muted-foreground">
                   选择浅色、深色或跟随系统
                 </div>
               </div>
-              <Select defaultValue="system">
+              <Select value={theme} onValueChange={handleThemeChange}>
                 <SelectTrigger className="w-auto min-w-[100px]">
                   <SelectValue placeholder="选择主题" />
                 </SelectTrigger>
@@ -39,12 +64,12 @@ export function Settings() {
 
             <div className="flex items-center justify-between py-3">
               <div className="space-y-0.5">
-                <div className="text-sm font-medium">语言</div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-base font-medium">语言</div>
+                <div className="text-sm text-muted-foreground">
                   选择界面显示语言
                 </div>
               </div>
-              <Select defaultValue="zh-CN">
+              <Select value={language} onValueChange={handleLanguageChange}>
                 <SelectTrigger className="w-auto min-w-[100px]">
                   <SelectValue placeholder="选择语言" />
                 </SelectTrigger>
