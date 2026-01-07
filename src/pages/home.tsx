@@ -1,7 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 export function Home() {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <p className="text-gray-600">欢迎来到 Echo 口语练习应用！</p>
+      <p className="text-gray-600">{t("home.welcome")}</p>
     </div>
   );
 }

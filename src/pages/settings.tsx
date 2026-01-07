@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 import {
   Select,
   SelectContent,
@@ -10,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { get, set, SETTING_KEYS } from "@/lib/setting";
 
 export function Settings() {
+  const { t } = useTranslation();
   const [theme, setTheme] = useState<string>("system");
   const [language, setLanguage] = useState<string>("zh-CN");
 
@@ -22,7 +25,10 @@ export function Settings() {
     const savedLanguage = await get(SETTING_KEYS.LANGUAGE);
 
     if (savedTheme) setTheme(savedTheme);
-    if (savedLanguage) setLanguage(savedLanguage);
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+      i18n.changeLanguage(savedLanguage);
+    }
   };
 
   const handleThemeChange = async (value: string) => {
@@ -33,29 +39,40 @@ export function Settings() {
   const handleLanguageChange = async (value: string) => {
     setLanguage(value);
     await set(SETTING_KEYS.LANGUAGE, value);
+    i18n.changeLanguage(value);
   };
 
   return (
     <div className="w-full space-y-6">
       <div className="space-y-6">
         <div>
-          <h4 className="text-base font-medium text-muted-foreground">外观</h4>
+          <h4 className="text-base font-medium text-muted-foreground mb-4">
+            {t("settings.appearance")}
+          </h4>
           <div className="space-y-0">
             <div className="flex items-center justify-between py-3">
               <div className="space-y-0.5">
-                <div className="text-base font-medium">主题</div>
+                <div className="text-base font-medium">
+                  {t("settings.theme")}
+                </div>
                 <div className="text-sm text-muted-foreground">
-                  选择浅色、深色或跟随系统
+                  {t("settings.themeDescription")}
                 </div>
               </div>
               <Select value={theme} onValueChange={handleThemeChange}>
                 <SelectTrigger className="w-auto min-w-[100px]">
-                  <SelectValue placeholder="选择主题" />
+                  <SelectValue placeholder={t("settings.selectTheme")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="light">浅色</SelectItem>
-                  <SelectItem value="dark">深色</SelectItem>
-                  <SelectItem value="system">跟随系统</SelectItem>
+                  <SelectItem value="light">
+                    {t("settings.themeLight")}
+                  </SelectItem>
+                  <SelectItem value="dark">
+                    {t("settings.themeDark")}
+                  </SelectItem>
+                  <SelectItem value="system">
+                    {t("settings.themeSystem")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -64,20 +81,20 @@ export function Settings() {
 
             <div className="flex items-center justify-between py-3">
               <div className="space-y-0.5">
-                <div className="text-base font-medium">语言</div>
+                <div className="text-base font-medium">
+                  {t("settings.language")}
+                </div>
                 <div className="text-sm text-muted-foreground">
-                  选择界面显示语言
+                  {t("settings.languageDescription")}
                 </div>
               </div>
               <Select value={language} onValueChange={handleLanguageChange}>
                 <SelectTrigger className="w-auto min-w-[100px]">
-                  <SelectValue placeholder="选择语言" />
+                  <SelectValue placeholder={t("settings.selectLanguage")} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="en">English</SelectItem>
                   <SelectItem value="zh-CN">简体中文</SelectItem>
-                  <SelectItem value="zh-TW">繁体中文</SelectItem>
-                  <SelectItem value="ja">日本語</SelectItem>
                 </SelectContent>
               </Select>
             </div>

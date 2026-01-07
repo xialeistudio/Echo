@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   Home,
   Mic,
@@ -13,27 +14,25 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useSidebar } from "@/components/ui/sidebar";
-import { PanelLeftIcon } from "lucide-react";
 
 const items = [
   {
-    title: "首页",
+    titleKey: "nav.home",
     url: "/",
     icon: Home,
   },
   {
-    title: "口语",
+    titleKey: "nav.speaking",
     url: "/speaking",
     icon: Mic,
   },
   {
-    title: "设置",
+    titleKey: "nav.settings",
     url: "/settings",
     icon: Settings,
   },
@@ -41,16 +40,18 @@ const items = [
 
 function CollapseButton() {
   const { state, toggleSidebar } = useSidebar();
+  const { t } = useTranslation();
 
   return (
     <SidebarMenuButton onClick={toggleSidebar}>
       {state === "collapsed" ? <PanelLeftOpen /> : <PanelLeftClose />}
-      <span className={state === "collapsed" ? "invisible" : ""}>收起</span>
+      <span className={state === "collapsed" ? "invisible" : ""}>{t("nav.collapse")}</span>
     </SidebarMenuButton>
   );
 }
 
 export function AppSidebar() {
+  const { t } = useTranslation();
   const location = useLocation();
 
   return (
@@ -60,14 +61,14 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem key={item.url}>
                   <SidebarMenuButton
                     asChild
                     isActive={location.pathname === item.url}
                   >
                     <NavLink to={item.url}>
                       <item.icon />
-                      <span>{item.title}</span>
+                      <span>{t(item.titleKey)}</span>
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
