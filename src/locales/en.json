@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "Home",
+    "speaking": "Speaking",
+    "settings": "Settings",
+    "collapse": "Collapse"
+  },
+  "settings": {
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "themeDescription": "Choose light, dark, or follow system",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "Follow System",
+    "language": "Language",
+    "languageDescription": "Choose the display language",
+    "selectTheme": "Select Theme",
+    "selectLanguage": "Select Language"
+  },
+  "home": {
+    "welcome": "Welcome to Echo Speaking Practice!"
+  },
+  "speaking": {
+    "title": "Speaking"
+  }
+}

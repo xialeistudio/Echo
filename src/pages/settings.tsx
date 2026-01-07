@@ -9,11 +9,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { useTheme } from "@/components/theme-provider";
 import { get, set, SETTING_KEYS } from "@/lib/setting";
 
 export function Settings() {
   const { t } = useTranslation();
-  const [theme, setTheme] = useState<string>("system");
+  const { theme, setTheme } = useTheme();
   const [language, setLanguage] = useState<string>("zh-CN");
 
   useEffect(() => {
@@ -21,19 +22,16 @@ export function Settings() {
   }, []);
 
   const loadSettings = async () => {
-    const savedTheme = await get(SETTING_KEYS.THEME);
     const savedLanguage = await get(SETTING_KEYS.LANGUAGE);
 
-    if (savedTheme) setTheme(savedTheme);
     if (savedLanguage) {
       setLanguage(savedLanguage);
       i18n.changeLanguage(savedLanguage);
     }
   };
 
-  const handleThemeChange = async (value: string) => {
-    setTheme(value);
-    await set(SETTING_KEYS.THEME, value);
+  const handleThemeChange = (value: string) => {
+    setTheme(value as "light" | "dark" | "system");
   };
 
   const handleLanguageChange = async (value: string) => {

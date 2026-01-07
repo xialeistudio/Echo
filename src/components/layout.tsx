@@ -5,7 +5,6 @@ import { AppSidebar } from "@/components/app-sidebar";
 export default function Layout() {
   return (
     <SidebarProvider
-      className="border-t border-gray-200"
       defaultOpen={true}
       style={
         {
@@ -15,8 +14,10 @@ export default function Layout() {
       }
     >
       <AppSidebar />
-      <main className="p-6 flex-1 flex flex-col">
-        <Outlet />
+      <main className="flex-1 flex flex-col h-screen w-full border-t border-border">
+        <div className="flex-1 p-6 flex flex-col">
+          <Outlet />
+        </div>
       </main>
     </SidebarProvider>
   );
