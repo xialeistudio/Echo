@@ -46,7 +46,9 @@ function CollapseButton() {
   return (
     <SidebarMenuButton onClick={toggleSidebar}>
       {state === "collapsed" ? <PanelLeftOpen /> : <PanelLeftClose />}
-      <span className={state === "collapsed" ? "invisible" : ""}>{t("nav.collapse")}</span>
+      <span className={state === "collapsed" ? "invisible" : ""}>
+        {t("nav.collapse")}
+      </span>
     </SidebarMenuButton>
   );
 }
@@ -57,9 +59,11 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon" className="border-t border-border h-full">
-      <SidebarHeader className="flex flex-row items-center gap-3 py-4 pl-3">
-        <img src="/echo.svg" alt="Echo" className="h-8 w-auto" />
-        <span className="font-semibold text-lg">Echo</span>
+      <SidebarHeader className="flex flex-row items-center gap-3">
+        <SidebarMenuButton>
+          <img src="/echo.svg" alt="Echo" className="h-8 w-auto" />
+          <span className="font-semibold text-lg">Echo</span>
+        </SidebarMenuButton>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
