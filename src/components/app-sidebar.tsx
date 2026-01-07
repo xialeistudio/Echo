@@ -1,4 +1,10 @@
-import { Home, Mic, Settings } from "lucide-react";
+import {
+  Home,
+  Mic,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Settings,
+} from "lucide-react";
 import { useLocation, NavLink } from "react-router-dom";
 
 import {
@@ -38,7 +44,7 @@ function CollapseButton() {
 
   return (
     <SidebarMenuButton onClick={toggleSidebar}>
-      <PanelLeftIcon />
+      {state === "collapsed" ? <PanelLeftOpen /> : <PanelLeftClose />}
       <span className={state === "collapsed" ? "invisible" : ""}>收起</span>
     </SidebarMenuButton>
   );
