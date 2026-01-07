@@ -15,7 +15,7 @@ export default function Layout() {
       }
     >
       <AppSidebar />
-      <main className="p-2">
+      <main className="p-6 flex-1 flex flex-col">
         <Outlet />
       </main>
     </SidebarProvider>
